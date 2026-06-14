@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0a0a0f;
+  --surface:  #12121a;
+  --surface2: #16161f;
+  --border:   #1e1e2e;
+  --text:     #e8e8f0;
+  --muted:    #6b6b8a;
+  --muted-2:  #8888a0;
+  --accent:   #00c8ff;
+  --safe:     #22d47e;
+  --warm:     #fb923c;
+  --hot:      #ef4444;
+  --critical: #dc2626;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ── Title bar ───────────────────────────────────────────── */
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 40px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  -webkit-app-region: drag;
+  flex-shrink: 0;
+}
+.title-bar-left  { display: flex; align-items: center; gap: 9px; }
+.title-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  -webkit-app-region: no-drag;
+}
+
+.tc-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.app-name {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.version {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted-2);
+}
+.platform-badge {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(0,200,255,0.08);
+  color: var(--accent);
+  border: 1px solid rgba(0,200,255,0.2);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+/* ── Dashboard grid ──────────────────────────────────────── */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+  height: calc(100vh - 40px - 30px);
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+.card-title {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-subtitle {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55%;
+  text-align: right;
+}
+
+/* ── Stat rows ───────────────────────────────────────────── */
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 18px;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted-2);
+  width: 38px;
+  flex-shrink: 0;
+}
+.stat-value {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  width: 68px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Progress bars ───────────────────────────────────────── */
+.bar-wrap {
+  flex: 1;
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.bar {
+  height: 100%;
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.7s cubic-bezier(0.4,0,0.2,1), background-color 0.4s;
+  background: var(--safe);
+}
+
+/* ── Per-core mini bars ──────────────────────────────────── */
+.cores-grid {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  margin-top: 3px;
+  height: 36px;
+  flex-shrink: 0;
+}
+.core-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+}
+.core-bar-bg {
+  flex: 1;
+  width: 100%;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.core-bar-fill {
+  width: 100%;
+  background: var(--accent);
+  opacity: 0.65;
+  transition: height 0.6s cubic-bezier(0.4,0,0.2,1);
+  border-radius: 2px;
+}
+.core-num {
+  font-family: var(--mono);
+  font-size: 0.42rem;
+  color: var(--muted);
+  line-height: 1;
+}
+
+/* ── GPU details 2x2 grid ────────────────────────────────── */
+.gpu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 10px;
+  margin-top: 3px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.gpu-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.gpu-detail-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.gpu-detail-value {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Disk list ───────────────────────────────────────────── */
+.disk-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.disk-item + .disk-item { margin-top: 8px; }
+.disk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.disk-name {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.disk-sizes {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted-2);
+}
+.disk-bar-wrap {
+  width: 100%;
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.disk-bar {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+  opacity: 0.7;
+  transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── No GPU message ──────────────────────────────────────── */
+.no-gpu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.4;
+}
+.no-gpu-icon { font-size: 1.8rem; }
+.no-gpu-text {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-align: center;
+  color: var(--muted-2);
+  line-height: 1.5;
+}
+
+/* ── Status bar ──────────────────────────────────────────── */
+.status-bar {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.status-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--safe);
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.status-dot.connecting { background: var(--warm); }

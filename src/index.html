@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TempCore Monitor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Title bar ── -->
+  <header class="title-bar">
+    <div class="title-bar-left">
+      <span class="tc-dot"></span>
+      <span class="app-name">TempCore Monitor</span>
+    </div>
+    <div class="title-bar-right">
+      <span class="version">v0.1.0</span>
+      <span class="platform-badge">Windows</span>
+    </div>
+  </header>
+
+  <!-- ── Dashboard ── -->
+  <main class="dashboard">
+
+    <!-- CPU -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-title">CPU</span>
+        <span class="card-subtitle" id="cpu-name">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Usage</span>
+        <div class="bar-wrap"><div class="bar" id="cpu-usage-bar"></div></div>
+        <span class="stat-value" id="cpu-usage">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Temp</span>
+        <div class="bar-wrap"><div class="bar" id="cpu-temp-bar"></div></div>
+        <span class="stat-value" id="cpu-temp">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Clock</span>
+        <span class="stat-value" id="cpu-clock">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Cores</span>
+        <span class="stat-value" id="cpu-cores">-</span>
+      </div>
+      <!-- Per-core mini bars -->
+      <div class="cores-grid" id="cores-grid"></div>
+    </section>
+
+    <!-- GPU -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-title">GPU</span>
+        <span class="card-subtitle" id="gpu-name">-</span>
+      </div>
+      <div id="gpu-body">
+        <!-- Filled by JS: either stat rows or .no-gpu message -->
+      </div>
+    </section>
+
+    <!-- RAM -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-title">Memory</span>
+        <span class="card-subtitle" id="ram-total">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Used</span>
+        <div class="bar-wrap"><div class="bar" id="ram-bar"></div></div>
+        <span class="stat-value" id="ram-used">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Free</span>
+        <span class="stat-value" id="ram-free">-</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Usage</span>
+        <span class="stat-value" id="ram-pct">-</span>
+      </div>
+    </section>
+
+    <!-- Storage -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-title">Storage</span>
+      </div>
+      <div id="disk-list">
+        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--muted);">Loading...</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Status bar ── -->
+  <footer class="status-bar">
+    <span id="status-text"><span class="status-dot connecting" id="status-dot"></span>Connecting...</span>
+    <span>Refresh: 1s &nbsp;|&nbsp; tempcore.com</span>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

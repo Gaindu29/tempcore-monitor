@@ -1,0 +1,14 @@
+{
+  "name": "tempcore-monitor",
+  "version": "0.1.0",
+  "description": "Real-time hardware monitoring tool by TempCore",
+  "scripts": {
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}

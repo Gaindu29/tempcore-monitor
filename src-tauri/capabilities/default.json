@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schema.tauri.app/config/2/capability.json",
+  "identifier": "default",
+  "description": "Default capability for TempCore Monitor",
+  "windows": ["main"],
+  "permissions": [
+    "core:default"
+  ]
+}
