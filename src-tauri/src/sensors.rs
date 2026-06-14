@@ -1,5 +1,5 @@
 use serde::Serialize;
-use sysinfo::{Components, CpuRefreshKind, Disks, MemoryRefreshKind, RefreshKind, System};
+use sysinfo::{Components, Disks, System};
 
 // ── Data types sent to the frontend ─────────────────────────
 

@@ -1,5 +1,5 @@
 use std::sync::Mutex;
-use sysinfo::System;
+use sysinfo::{CpuRefreshKind, MemoryRefreshKind, RefreshKind, System};
 
 mod sensors;
 use sensors::AllStats;
@@ -15,7 +15,7 @@ fn get_all_stats(state: tauri::State<AppState>) -> AllStats {
     // Refresh CPU and memory. Disk and GPU are refreshed inside their
     // respective read functions since they manage their own state.
     sys.refresh_cpu_all();
-    sys.refresh_memory();
+    sys.refresh_memory_specifics(MemoryRefreshKind::everything());
 
     AllStats {
         cpu: sensors::read_cpu(&sys),
@@ -29,8 +29,16 @@ fn get_all_stats(state: tauri::State<AppState>) -> AllStats {
 pub fn run() {
     // Create and do an initial full refresh so the first
     // call to get_all_stats() has delta data for CPU usage.
-    let mut system = System::new_all();
-    system.refresh_all();
+    let mut system = System::new_with_specifics(
+        RefreshKind::new()
+            .with_cpu(CpuRefreshKind::everything())
+            .with_memory(MemoryRefreshKind::everything()),
+    );
+    system.refresh_specifics(
+        RefreshKind::new()
+            .with_cpu(CpuRefreshKind::everything())
+            .with_memory(MemoryRefreshKind::everything()),
+    );
 
     tauri::Builder::default()
         .manage(AppState {
